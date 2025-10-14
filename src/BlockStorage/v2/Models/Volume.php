@@ -122,7 +122,7 @@ class Volume extends OperatorResource implements Creatable, Listable, Updateable
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteVolume());
     }

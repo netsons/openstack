@@ -143,7 +143,7 @@ class Server extends OperatorResource implements Creatable, Updateable, Deletabl
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->execute($this->api->deleteServer(), $this->getAttrs(['id']));
     }

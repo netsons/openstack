@@ -181,7 +181,7 @@ class Image extends OperatorResource implements Creatable, Listable, Retrievable
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteImage());
     }

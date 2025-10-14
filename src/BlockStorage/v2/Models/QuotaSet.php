@@ -70,7 +70,7 @@ class QuotaSet extends OperatorResource implements Retrievable, Updateable, Dele
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $response = $this->executeWithState($this->api->deleteQuotaSet());
         $this->populateFromResponse($response);

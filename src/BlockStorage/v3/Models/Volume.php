@@ -7,7 +7,7 @@ namespace OpenStack\BlockStorage\v3\Models;
 use OpenStack\BlockStorage\v3\Api;
 use OpenStack\Common\Resource\Alias;
 use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\DeletableWithUserOptions as Deletable;
 use OpenStack\Common\Resource\HasMetadata;
 use OpenStack\Common\Resource\HasWaiterTrait;
 use OpenStack\Common\Resource\Listable;

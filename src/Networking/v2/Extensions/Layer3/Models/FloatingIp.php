@@ -70,7 +70,7 @@ class FloatingIp extends OperatorResource implements Listable, Creatable, Retrie
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteFloatingIp());
     }

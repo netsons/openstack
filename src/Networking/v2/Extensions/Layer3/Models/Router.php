@@ -76,7 +76,7 @@ class Router extends OperatorResource implements Listable, Creatable, Retrievabl
         $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteRouter());
     }

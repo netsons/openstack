@@ -85,7 +85,7 @@ class Keypair extends OperatorResource implements Listable, Retrievable, Deletab
         return parent::populateFromArray(Utils::flattenJson($array, $this->resourceKey));
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->execute($this->api->deleteKeypair(), ['name' => (string) $this->name]);
     }

@@ -7,10 +7,11 @@ namespace OpenStack\Common\Resource;
 /**
  * Represents a resource that can be deleted.
  */
-interface Deletable
+interface DeletableWithUserOptions
 {
     /**
      * Permanently delete this resource.
+     * @param array $userOptions
      */
-    public function delete();
+    public function delete(array $userOptions);
 }

@@ -54,7 +54,7 @@ class Flavor extends OperatorResource implements Listable, Retrievable, Creatabl
         return $this->populateFromResponse($response);
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->execute($this->api->deleteFlavor(), ['id' => (string) $this->id]);
     }
