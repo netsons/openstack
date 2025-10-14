@@ -22,6 +22,9 @@ class FloatingIp extends OperatorResource implements Listable, Creatable, Retrie
     public $status;
 
     /** @var string */
+    public $description;
+
+    /** @var string */
     public $floatingNetworkId;
 
     /** @var string */
@@ -51,6 +54,9 @@ class FloatingIp extends OperatorResource implements Listable, Creatable, Retrie
     protected $resourceKey  = 'floatingip';
     protected $resourcesKey = 'floatingips';
 
+    /**
+     * {@inheritdoc}
+     */
     public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postFloatingIps(), $userOptions);

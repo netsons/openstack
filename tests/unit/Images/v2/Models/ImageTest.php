@@ -1,6 +1,6 @@
 <?php
 
-namespace OpensTack\Test\Images\v2\Models;
+namespace OpenStack\Test\Images\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
@@ -30,9 +30,13 @@ class ImageTest extends TestCase
 
     public function test_it_retrieves()
     {
-        $this->client->getConfig('base_uri')->shouldBeCalled()->willReturn(\GuzzleHttp\Psr7\uri_for(''));
+        $returnedUri = function_exists('\GuzzleHttp\Psr7\uri_for')
+            ? \GuzzleHttp\Psr7\uri_for('')
+            : \GuzzleHttp\Psr7\Utils::uriFor('');
 
-        $this->setupMock('GET', $this->path, null, [], 'GET_image');
+        $this->client->getConfig('base_uri')->shouldBeCalled()->willReturn($returnedUri);
+
+        $this->mockRequest('GET', $this->path, 'GET_image', null, []);
 
         $this->image->retrieve();
 
@@ -78,11 +82,11 @@ class ImageTest extends TestCase
             (object) ['op' => 'replace', 'path' => '/protected', 'value' => $opts['protected']],
         ], JSON_UNESCAPED_SLASHES);
 
-        $this->setupMock('GET', $this->path, null, [], 'GET_image');
-        $this->setupMock('GET', 'v2/schemas/image', null, [], 'GET_image_schema');
+        $this->mockRequest('GET', $this->path, 'GET_image', null, []);
+        $this->mockRequest('GET', 'v2/schemas/image', 'GET_image_schema', null, []);
 
         $headers = ['Content-Type' => 'application/openstack-images-v2.1-json-patch'];
-        $this->setupMock('PATCH', $this->path, $expectedJson, $headers, 'POST_image');
+        $this->mockRequest('PATCH', $this->path, 'POST_image', $expectedJson, $headers);
 
         $this->image->update($opts);
     }
@@ -91,8 +95,8 @@ class ImageTest extends TestCase
     {
         $this->client->getConfig('base_uri')->shouldBeCalled()->willReturn(new Uri);
 
-        $this->setupMock('GET', $this->path, null, [], 'GET_image');
-        $this->setupMock('GET', 'v2/schemas/image', null, [], 'GET_image_schema');
+        $this->mockRequest('GET', $this->path, 'GET_image', null, []);
+        $this->mockRequest('GET', 'v2/schemas/image', 'GET_image_schema', null, []);
         $this->expectException(\Exception::class);
 
         $this->image->update([
@@ -102,42 +106,48 @@ class ImageTest extends TestCase
 
     public function test_it_deletes()
     {
-        $this->setupMock('DELETE', $this->path, null, [], new Response(204));
+        $this->mockRequest('DELETE', $this->path, new Response(204), null, []);
 
         $this->image->delete();
     }
 
     public function test_it_reactivates()
     {
-        $this->setupMock('POST', $this->path . '/actions/reactivate', null, [], new Response(204));
+        $this->mockRequest('POST', $this->path . '/actions/reactivate', new Response(204), null, []);
 
         $this->image->reactivate();
     }
 
     public function test_it_deactivates()
     {
-        $this->setupMock('POST', $this->path . '/actions/deactivate', null, [], new Response(204));
+        $this->mockRequest('POST', $this->path . '/actions/deactivate', new Response(204), null, []);
 
         $this->image->deactivate();
     }
 
     public function test_it_uploads_data_stream()
     {
-        $stream  = \GuzzleHttp\Psr7\stream_for('data');
+        $stream = function_exists('\GuzzleHttp\Psr7\stream_for')
+            ? \GuzzleHttp\Psr7\stream_for('data')
+            : \GuzzleHttp\Psr7\Utils::streamFor('data');
+
         $headers = ['Content-Type' => 'application/octet-stream'];
 
-        $this->setupMock('PUT', $this->path . '/file', $stream, $headers, new Response(204));
+        $this->mockRequest('PUT', $this->path . '/file', new Response(204), $stream, $headers);
 
         $this->image->uploadData($stream);
     }
 
     public function test_it_downloads_data()
     {
-        $stream  = \GuzzleHttp\Psr7\stream_for('data');
+        $stream = function_exists('\GuzzleHttp\Psr7\stream_for')
+            ? \GuzzleHttp\Psr7\stream_for('data')
+            : \GuzzleHttp\Psr7\Utils::streamFor('data');
+
         $headers = ['Content-Type' => 'application/octet-stream'];
         $response = new Response(200, $headers, $stream);
 
-        $this->setupMock('GET', $this->path . '/file', null, [], $response);
+        $this->mockRequest('GET', $this->path . '/file', $response, null, []);
 
         self::assertInstanceOf(Stream::class, $this->image->downloadData());
     }
@@ -147,7 +157,7 @@ class ImageTest extends TestCase
         $memberId = '8989447062e04a818baf9e073fd04fa7';
         $expectedJson = ['member' => $memberId];
 
-        $this->setupMock('POST', $this->path . '/members', $expectedJson, [], 'POST_members');
+        $this->mockRequest('POST', $this->path . '/members', 'POST_members', $expectedJson);
 
         $member = $this->image->addMember('8989447062e04a818baf9e073fd04fa7');
         self::assertInstanceOf(Member::class, $member);
@@ -155,10 +165,7 @@ class ImageTest extends TestCase
 
     public function test_it_lists_members()
     {
-        $this->client
-            ->request('GET', $this->path . '/members', ['headers' => []])
-            ->shouldBeCalled()
-            ->willReturn($this->getFixture('GET_members'));
+        $this->mockRequest('GET', $this->path . '/members', 'GET_members');
 
         $count = 0;
 

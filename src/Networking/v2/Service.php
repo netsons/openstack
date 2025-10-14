@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OpenStack\Networking\v2;
 
 use OpenStack\Common\Service\AbstractService;
+use OpenStack\Networking\v2\Extensions\Layer3\ServiceTrait as Layer3;
+use OpenStack\Networking\v2\Extensions\SecurityGroups\ServiceTrait as SecurityGroups;
 use OpenStack\Networking\v2\Models\LoadBalancer;
 use OpenStack\Networking\v2\Models\LoadBalancerHealthMonitor;
 use OpenStack\Networking\v2\Models\LoadBalancerListener;
@@ -19,10 +21,13 @@ use OpenStack\Networking\v2\Models\Subnet;
 /**
  * Network v2 service for OpenStack.
  *
- * @property \OpenStack\Networking\v2\Api $api
+ * @property Api $api
  */
 class Service extends AbstractService
 {
+    use Layer3;
+    use SecurityGroups;
+
     /**
      * Create a new network resource.
      *
@@ -57,6 +62,8 @@ class Service extends AbstractService
      * List networks.
      *
      * @param array $options {@see \OpenStack\Networking\v2\Api::getNetworks}
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\Network>
      */
     public function listNetworks(array $options = []): \Generator
     {
@@ -99,6 +106,8 @@ class Service extends AbstractService
      * List subnets.
      *
      * @param array $options {@see \OpenStack\Networking\v2\Api::getSubnets}
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\Subnet>
      */
     public function listSubnets(array $options = []): \Generator
     {
@@ -141,6 +150,8 @@ class Service extends AbstractService
      * List ports.
      *
      * @param array $options {@see \OpenStack\Networking\v2\Api::getPorts}
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\Port>
      */
     public function listPorts(array $options = []): \Generator
     {
@@ -149,6 +160,8 @@ class Service extends AbstractService
 
     /**
      * Lists quotas for projects with non-default quota values.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\Quota>
      */
     public function listQuotas(): \Generator
     {
@@ -180,6 +193,8 @@ class Service extends AbstractService
 
     /**
      * Lists loadbalancers for projects.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\LoadBalancer>
      */
     public function listLoadBalancers(): \Generator
     {
@@ -206,6 +221,8 @@ class Service extends AbstractService
 
     /**
      * Lists loadbalancer listeners.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\LoadBalancerListener>
      */
     public function listLoadBalancerListeners(): \Generator
     {
@@ -232,6 +249,8 @@ class Service extends AbstractService
 
     /**
      * Lists loadbalancer pools.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\LoadBalancerPool>
      */
     public function listLoadBalancerPools(): \Generator
     {
@@ -258,6 +277,8 @@ class Service extends AbstractService
 
     /**
      * Lists loadbalancer members.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\LoadBalancerMember>
      */
     public function listLoadBalancerMembers(string $poolId): \Generator
     {
@@ -284,6 +305,8 @@ class Service extends AbstractService
 
     /**
      * Lists loadbalancer healthmonitors.
+     *
+     * @return \Generator<mixed, \OpenStack\Networking\v2\Models\LoadBalancerHealthMonitor>
      */
     public function listLoadBalancerHealthMonitors(): \Generator
     {
