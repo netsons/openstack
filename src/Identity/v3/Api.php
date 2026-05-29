@@ -777,9 +777,10 @@ class Api extends AbstractApi
     public function postCredentials(): array
     {
         return [
-            'method' => 'POST',
-            'path'   => 'credentials',
-            'params' => [
+            'method'  => 'POST',
+            'path'    => 'credentials',
+            'jsonKey' => 'credential',
+            'params'  => [
                 'blob'      => $this->params->blob(),
                 'projectId' => $this->params->projectId(),
                 'type'      => $this->params->type('credential'),
@@ -811,9 +812,10 @@ class Api extends AbstractApi
     public function patchCredential(): array
     {
         return [
-            'method' => 'PATCH',
-            'path'   => 'credentials/{id}',
-            'params' => ['id' => $this->params->idUrl('credential')] + $this->postCredentials()['params'],
+            'method'  => 'PATCH',
+            'path'    => 'credentials/{id}',
+            'jsonKey' => 'credential',
+            'params'  => ['id' => $this->params->idUrl('credential')] + $this->postCredentials()['params'],
         ];
     }
 

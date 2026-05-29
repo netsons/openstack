@@ -9,9 +9,10 @@ $openstack = new OpenStack\OpenStack([
         'id'       => '{userId}',
         'password' => '{password}'
     ],
+    'scope'   => ['project' => ['id' => '{projectId}']]
 ]);
 
-$identity = $openstack->identityV3();
+$compute = $openstack->computeV2(['region' => '{region}']);
 
-$credential = $identity->getCredential('{credentialId}');
-$credential->delete();
+$serverGroup = $compute->getServerGroup(['id' => '{serverGroupId}']);
+$serverGroup->retrieve();
