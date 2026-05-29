@@ -27,28 +27,34 @@ class FloatingIpTest extends TestCase
         $expectedJson = ['floatingip' => [
             "floating_network_id" => "376da547-b977-4cfe-9cba-275c80debf57",
             "port_id"             => "ce705c24-c1ef-408a-bda3-7bbd946164ab",
+            "description"         => "some-floating-ip",
         ]];
 
-        $this->setupMock('PUT', 'v2.0/floatingips/id', $expectedJson, [], new Response(202));
+        $this->mockRequest('PUT', 'v2.0/floatingips/id', new Response(202), $expectedJson, []);
 
         $this->floatingIp->floatingNetworkId = "376da547-b977-4cfe-9cba-275c80debf57";
         $this->floatingIp->portId = "ce705c24-c1ef-408a-bda3-7bbd946164ab";
+        $this->floatingIp->description = "some-floating-ip";
         $this->floatingIp->update();
     }
 
     public function test_it_deletes()
     {
-        $this->setupMock('DELETE', 'v2.0/floatingips/id', null, [], new Response(202));
+        $this->mockRequest('DELETE', 'v2.0/floatingips/id', new Response(202), null, []);
 
         $this->floatingIp->delete();
     }
 
     public function test_it_retrieves()
     {
-        $this->setupMock('GET', 'v2.0/floatingips/id', null, [], 'FloatingIp');
+        $this->mockRequest('GET', 'v2.0/floatingips/id', 'FloatingIp', null, []);
 
         $this->floatingIp->retrieve();
 
+        self::assertEquals(
+            'some-floating-ip',
+                            $this->floatingIp->description
+        );
         self::assertEquals(
             '376da547-b977-4cfe-9cba-275c80debf57',
                             $this->floatingIp->floatingNetworkId
@@ -82,7 +88,7 @@ class FloatingIpTest extends TestCase
 
     public function test_it_associates_port()
     {
-        $this->setupMock('PUT', 'v2.0/floatingips/id', ['floatingip' => ['port_id' => 'some-port-id']], [], 'FloatingIp');
+        $this->mockRequest('PUT', 'v2.0/floatingips/id', 'FloatingIp', ['floatingip' => ['port_id' => 'some-port-id']], []);
 
         $this->floatingIp->associatePort('some-port-id');
     }

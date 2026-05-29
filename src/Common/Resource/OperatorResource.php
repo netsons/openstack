@@ -11,7 +11,7 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
 {
     use OperatorTrait;
 
-    const DEFAULT_MARKER_KEY = 'id';
+    public const DEFAULT_MARKER_KEY = 'id';
 
     /**
      * The key that indicates how the API nests resource collections. For example, when
@@ -47,9 +47,6 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
         return $this->client->getConfig('base_uri');
     }
 
-    /**
-     * @return mixed
-     */
     public function executeWithState(array $definition)
     {
         return $this->execute($definition, $this->getAttrs(array_keys($definition['params'])));
@@ -68,9 +65,11 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
     }
 
     /**
-     * {@inheritdoc}
+     * Creates a generator for enumerating over a collection of resources returned by the request.
+     *
+     * @returns \Generator<mixed, static>
      */
-    public function enumerate(array $def, array $userVals = [], callable $mapFn = null): \Generator
+    public function enumerate(array $def, array $userVals = [], ?callable $mapFn = null): \Generator
     {
         $operation = $this->getOperation($def);
 
@@ -82,7 +81,7 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
             return $this->sendRequest($operation, $userVals);
         };
 
-        $resourceFn = function (array $data) {
+        $resourceFn   = function (array $data) {
             $resource = $this->newInstance();
             $resource->populateFromArray($data);
 
@@ -101,7 +100,12 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
         return $iterator();
     }
 
-    public function extractMultipleInstances(ResponseInterface $response, string $key = null): array
+    /**
+     * Extracts multiple instances of the current resource from a response.
+     *
+     * @return array<self>
+     */
+    public function extractMultipleInstances(ResponseInterface $response, ?string $key = null): array
     {
         $key           = $key ?: $this->getResourcesKey();
         $resourcesData = Utils::jsonDecode($response)[$key];
@@ -123,9 +127,6 @@ abstract class OperatorResource extends AbstractResource implements OperatorInte
         return new $service($this->client, $this->api);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function model(string $class, $data = null): ResourceInterface
     {
         $model = new $class($this->client, $this->api);

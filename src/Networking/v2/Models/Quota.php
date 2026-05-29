@@ -77,28 +77,19 @@ class Quota extends OperatorResource implements Retrievable, Updateable, Deletab
         'rbac_policy'         => 'rbacPolicy',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function retrieve()
     {
         $response = $this->execute($this->api->getQuota(), ['tenantId' => (string) $this->tenantId]);
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->putQuota());
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteQuota());
     }

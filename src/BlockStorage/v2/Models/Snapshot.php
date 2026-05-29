@@ -59,9 +59,6 @@ class Snapshot extends OperatorResource implements Listable, Creatable, Updateab
         'os-extended-snapshot-attributes:project_id' => 'projectId',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getAliases(): array
     {
         return parent::getAliases() + [
@@ -98,7 +95,7 @@ class Snapshot extends OperatorResource implements Listable, Creatable, Updateab
         $this->executeWithState($this->api->putSnapshot());
     }
 
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteSnapshot());
     }

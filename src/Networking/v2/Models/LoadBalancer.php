@@ -6,7 +6,7 @@ namespace OpenStack\Networking\v2\Models;
 
 use OpenStack\Common\Resource\Alias;
 use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\DeletableWithUserOptions as Deletable;
 use OpenStack\Common\Resource\OperatorResource;
 use OpenStack\Common\Resource\Retrievable;
 use OpenStack\Common\Resource\Updateable;
@@ -92,9 +92,6 @@ class LoadBalancer extends OperatorResource implements Creatable, Retrievable, U
         'vip_port_id'         => 'vipPortId',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getAliases(): array
     {
         return parent::getAliases() + [
@@ -103,9 +100,6 @@ class LoadBalancer extends OperatorResource implements Creatable, Retrievable, U
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postLoadBalancer(), $userOptions);
@@ -113,27 +107,18 @@ class LoadBalancer extends OperatorResource implements Creatable, Retrievable, U
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function retrieve()
     {
         $response = $this->execute($this->api->getLoadBalancer(), ['id' => (string) $this->id]);
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->putLoadBalancer());
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete(array $userOptions = [])
     {
         $userOptions = array_merge(['id' => $this->id], $userOptions);

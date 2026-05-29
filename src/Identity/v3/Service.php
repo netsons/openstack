@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace OpenStack\Identity\v3;
 
@@ -12,7 +12,7 @@ use OpenStack\Common\Service\AbstractService;
 /**
  * Represents the Keystone v3 service.
  *
- * @property \OpenStack\Identity\v3\Api $api
+ * @property Api $api
  */
 class Service extends AbstractService implements IdentityService
 {
@@ -45,7 +45,7 @@ class Service extends AbstractService implements IdentityService
         $name      = $options['catalogName'];
         $type      = $options['catalogType'];
         $region    = $options['region'];
-        $interface = isset($options['interface']) ? $options['interface'] : Enum::INTERFACE_PUBLIC;
+        $interface = $options['interface'] ?? Enum::INTERFACE_PUBLIC;
 
         if ($baseUrl = $token->catalog->getServiceUrl($name, $type, $region, $interface)) {
             return [$token, $baseUrl];
@@ -128,6 +128,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getServices}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Service>
      */
     public function listServices(array $options = []): \Generator
     {
@@ -172,6 +174,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getEndpoints}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Endpoint>
      */
     public function listEndpoints(array $options = []): \Generator
     {
@@ -194,6 +198,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getDomains}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Domain>
      */
     public function listDomains(array $options = []): \Generator
     {
@@ -227,6 +233,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getProjects}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Project>
      */
     public function listProjects(array $options = []): \Generator
     {
@@ -260,6 +268,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getUsers}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\User>
      */
     public function listUsers(array $options = []): \Generator
     {
@@ -278,78 +288,6 @@ class Service extends AbstractService implements IdentityService
     }
 
     /**
-     * Creates a new applicationCredential according to the provided options.
-     *
-     * @param array $options {@see \OpenStack\Identity\v3\Api::postApplicationCredential}
-     */
-    public function createApplicationCredential(array $options): Models\ApplicationCredential
-    {
-        return $this->model(Models\ApplicationCredential::class)->create($options);
-    }
-
-    /**
-     * Returns a generator which will yield a collection of user objects. The elements which generators yield can be
-     * accessed using a foreach loop. Often the API will not return the full state of the resource in collections; you
-     * will need to use retrieve() to pull in the full state of the remote resource from the API.
-     *
-     * @param array $options {@see \OpenStack\Identity\v3\Api::getApplicationCredentials}
-     */
-    public function listApplicationCredentials(array $options): \Generator
-    {
-        return $this->model(Models\ApplicationCredential::class)->enumerate($this->api->getApplicationCredentials(), $options);
-    }
-
-    /**
-     * Retrieves an applicationCredential object and populates its unique identifier object. This operation will not perform a GET or
-     * HEAD request by default; you will need to call retrieve() if you want to pull in remote state from the API.
-     *
-     * @param string $id The unique ID of the user
-     */
-    public function getApplicationCredential(string $userId, string $id): Models\ApplicationCredential
-    {
-        return $this->model(Models\ApplicationCredential::class, [
-            'userId' => $userId,
-            'id'     => $id
-        ]);
-    }
-
-    /**
-     * Creates a new Ec2 credential according to the provided options.
-     *
-     * @param array $options {@see \OpenStack\Identity\v3\Api::postEc2Credential}
-     */
-    public function createEc2Credential(array $options): Models\Ec2Credential
-    {
-        return $this->model(Models\Ec2Credential::class)->create($options);
-    }
-
-    /**
-     * Returns a generator which will yield a collection of user objects. The elements which generators yield can be
-     * accessed using a foreach loop. Often the API will not return the full state of the resource in collections; you
-     * will need to use retrieve() to pull in the full state of the remote resource from the API.
-     *
-     * @param array $options {@see \OpenStack\Identity\v3\Api::getEc2Credentials}
-     */
-    public function listEc2Credentials(array $options): \Generator
-    {
-        return $this->model(Models\Ec2Credential::class)->enumerate($this->api->getEc2Credentials(), $options);
-    }
-
-    /**
-     * Retrieves an Ec2 Credential object and populates its unique identifier object. This operation will not perform a GET or
-     * HEAD request by default; you will need to call retrieve() if you want to pull in remote state from the API.
-     *
-     * @param string $id The unique ID of the user
-     */
-    public function getEc2Credential(string $userId, string $access): Models\Ec2Credential
-    {
-        return $this->model(Models\Ec2Credential::class, [
-            'userId' => $userId,
-            'access' => $access
-        ]);
-    }
-
-    /**
      * Creates a new group according to the provided options.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::postGroups}
@@ -365,6 +303,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getGroups}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Group>
      */
     public function listGroups(array $options = []): \Generator
     {
@@ -397,12 +337,11 @@ class Service extends AbstractService implements IdentityService
      * be accessed using a foreach loop. Often the API will not return the full state of the resource in collections;
      * you will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
-     * Options:
-     * @param array $options {@see \OpenStack\Identity\v3\Api::getCredentials()}
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Credential>
      */
-    public function listCredentials(array $options = []): \Generator
+    public function listCredentials(): \Generator
     {
-        return $this->model(Models\Credential::class)->enumerate($this->api->getCredentials(), $options);
+        return $this->model(Models\Credential::class)->enumerate($this->api->getCredentials());
     }
 
     /**
@@ -432,6 +371,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getRoles}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Role>
      */
     public function listRoles(array $options = []): \Generator
     {
@@ -444,6 +385,8 @@ class Service extends AbstractService implements IdentityService
      * collections; you will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getRoleAssignments}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Assignment>
      */
     public function listRoleAssignments(array $options = []): \Generator
     {
@@ -466,6 +409,8 @@ class Service extends AbstractService implements IdentityService
      * will need to use retrieve() to pull in the full state of the remote resource from the API.
      *
      * @param array $options {@see \OpenStack\Identity\v3\Api::getPolicies}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Policy>
      */
     public function listPolicies(array $options = []): \Generator
     {

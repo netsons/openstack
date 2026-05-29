@@ -45,7 +45,7 @@ class Utils
      *
      * @return array
      */
-    public static function flattenJson($data, string $key = null)
+    public static function flattenJson($data, ?string $key = null)
     {
         return (!empty($data) && $key && isset($data[$key])) ? $data[$key] : $data;
     }
@@ -69,8 +69,6 @@ class Utils
 
     /**
      * Add an unlimited list of paths to a given URI.
-     *
-     * @param ...$paths
      */
     public static function addPaths(UriInterface $uri, ...$paths): UriInterface
     {

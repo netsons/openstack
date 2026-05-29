@@ -27,8 +27,6 @@ class Role extends OperatorResource implements Creatable, Listable, Deletable
     protected $resourcesKey = 'roles';
 
     /**
-     * {@inheritdoc}
-     *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postRoles}
      */
     public function create(array $data): Creatable
@@ -38,10 +36,7 @@ class Role extends OperatorResource implements Creatable, Listable, Deletable
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteRole());
     }
