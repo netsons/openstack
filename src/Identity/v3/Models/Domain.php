@@ -36,8 +36,6 @@ class Domain extends OperatorResource implements Creatable, Listable, Retrievabl
     protected $resourcesKey = 'domains';
 
     /**
-     * {@inheritdoc}
-     *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postDomains}
      */
     public function create(array $data): Creatable
@@ -47,34 +45,27 @@ class Domain extends OperatorResource implements Creatable, Listable, Retrievabl
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getDomain());
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->patchDomain());
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteDomain());
     }
 
     /**
      * @param array $options {@see \OpenStack\Identity\v3\Api::getUserRoles}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Role>
      */
     public function listUserRoles(array $options = []): \Generator
     {
@@ -115,6 +106,8 @@ class Domain extends OperatorResource implements Creatable, Listable, Retrievabl
 
     /**
      * @param array $options {@see \OpenStack\Identity\v3\Api::getGroupRoles}
+     *
+     * @return \Generator<mixed, \OpenStack\Identity\v3\Models\Role>
      */
     public function listGroupRoles(array $options = []): \Generator
     {

@@ -31,6 +31,8 @@ class Service extends AbstractService
      *
      * @param bool  $detail      if set to TRUE, more information will be returned
      * @param array $userOptions {@see Api::getVolumes}
+     *
+     * @return \Generator<mixed, \OpenStack\BlockStorage\v3\Models\Volume>
      */
     public function listVolumes(bool $detail = false, array $userOptions = []): \Generator
     {
@@ -58,6 +60,9 @@ class Service extends AbstractService
         return $this->model(VolumeType::class)->create($userOptions);
     }
 
+    /**
+     * @return \Generator<mixed, \OpenStack\BlockStorage\v3\Models\VolumeType>
+     */
     public function listVolumeTypes(): \Generator
     {
         return $this->model(VolumeType::class)->enumerate($this->api->getTypes(), []);
@@ -79,6 +84,9 @@ class Service extends AbstractService
         return $this->model(Snapshot::class)->create($userOptions);
     }
 
+    /**
+     * @return \Generator<mixed, \OpenStack\BlockStorage\v3\Models\Snapshot>
+     */
     public function listSnapshots(bool $detail = false, array $userOptions = []): \Generator
     {
         $def = (true === $detail) ? $this->api->getSnapshotsDetail() : $this->api->getSnapshots();
@@ -95,7 +103,7 @@ class Service extends AbstractService
     }
 
     /**
-     * Shows A Quota for a tenant.
+     * Shows a quota for a tenant.
      */
     public function getQuotaSet(string $tenantId): QuotaSet
     {

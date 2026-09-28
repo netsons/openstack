@@ -81,9 +81,6 @@ class LoadBalancerMember extends OperatorResource implements Creatable, Retrieva
         'provisioning_status' => 'provisioningStatus',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $userOptions): Creatable
     {
         $userOptions = array_merge(['poolId' => $this->poolId], $userOptions);
@@ -92,28 +89,19 @@ class LoadBalancerMember extends OperatorResource implements Creatable, Retrieva
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function retrieve()
     {
         $response = $this->execute($this->api->getLoadBalancerMember(), ['poolId' => (string) $this->poolId, 'id' => (string) $this->id]);
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->putLoadBalancerMember(), ['poolId' => (string) $this->poolId, 'id' => (string) $this->id]);
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteLoadBalancerMember(), ['poolId' => (string) $this->poolId, 'id' => (string) $this->id]);
     }

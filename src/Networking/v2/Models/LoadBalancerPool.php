@@ -108,22 +108,16 @@ class LoadBalancerPool extends OperatorResource implements Creatable, Retrievabl
         'provisioning_status' => 'provisioningStatus',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getAliases(): array
     {
         return parent::getAliases() + [
             'listeners'      => new Alias('listeners', LoadBalancerListener::class, true),
             'members'        => new Alias('members', LoadBalancerMember::class, true),
             'healthmonitors' => new Alias('healthmonitors', LoadBalancerHealthMonitor::class, true),
-            'loadbalancers' => new Alias('loadbalancers', LoadBalancer::class, true),
+            'loadbalancers'  => new Alias('loadbalancers', LoadBalancer::class, true),
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postLoadBalancerPool(), $userOptions);
@@ -131,28 +125,19 @@ class LoadBalancerPool extends OperatorResource implements Creatable, Retrievabl
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function retrieve()
     {
         $response = $this->execute($this->api->getLoadBalancerPool(), ['id' => (string) $this->id]);
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->putLoadBalancerPool());
         $this->populateFromResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(array $userOptions = [])
+    public function delete()
     {
         $this->executeWithState($this->api->deleteLoadBalancerPool());
     }

@@ -7,7 +7,7 @@ namespace OpenStack\BlockStorage\v3\Models;
 use OpenStack\BlockStorage\v3\Api;
 use OpenStack\Common\Resource\Alias;
 use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\DeletableWithUserOptions as Deletable;
 use OpenStack\Common\Resource\HasMetadata;
 use OpenStack\Common\Resource\HasWaiterTrait;
 use OpenStack\Common\Resource\Listable;
@@ -171,7 +171,7 @@ class Volume extends OperatorResource implements Creatable, Listable, Updateable
     /**
      * Extend the size of a volume.
      *
-     * @param int $newSize The new size of the volume in GB.
+     * @param int $newSize the new size of the volume in GB
      */
     public function extend(int $newSize)
     {
