@@ -1,10 +1,9 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenStack\Common\Resource\Alias;
 use OpenStack\Common\Resource\Listable;
 use OpenStack\Common\Resource\OperatorResource;
 
@@ -29,7 +28,7 @@ class Ec2Credential extends OperatorResource implements Listable
     protected $resourcesKey = 'credentials';
     protected $aliases      = [
         'user_id'   => 'userId',
-        'tenant_id' => 'tenantId'
+        'tenant_id' => 'tenantId',
     ];
 
     /**

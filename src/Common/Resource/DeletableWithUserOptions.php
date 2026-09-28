@@ -11,7 +11,6 @@ interface DeletableWithUserOptions
 {
     /**
      * Permanently delete this resource.
-     * @param array $userOptions
      */
     public function delete(array $userOptions);
 }

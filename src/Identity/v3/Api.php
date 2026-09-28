@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace OpenStack\Identity\v3;
 
@@ -596,8 +596,8 @@ class Api extends AbstractApi
             'path'    => 'users/{userId}/application_credentials',
             'jsonKey' => 'application_credentials',
             'params'  => [
-                'userId' => $this->params->idUrl('user')
-            ]
+                'userId' => $this->params->idUrl('user'),
+            ],
         ];
     }
 
@@ -618,11 +618,11 @@ class Api extends AbstractApi
                         'properties' => [
                             'path'    => $this->params->path(),
                             'method'  => $this->params->method(),
-                            'service' => $this->params->service()
-                        ]
-                    ]
-                ]
-            ]
+                            'service' => $this->params->service(),
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -633,8 +633,8 @@ class Api extends AbstractApi
             'path'    => 'users/{userId}/credentials/OS-EC2',
             'jsonKey' => 'credentials',
             'params'  => [
-                'userId' => $this->params->idUrl('user')
-            ]
+                'userId' => $this->params->idUrl('user'),
+            ],
         ];
     }
 
@@ -656,8 +656,8 @@ class Api extends AbstractApi
             'method' => 'POST',
             'path'   => 'users/{userId}/credentials/OS-EC2',
             'params' => [
-                'tenantId' => $this->params->tenantId()
-            ]
+                'tenantId' => $this->params->tenantId(),
+            ],
         ];
     }
 
@@ -669,8 +669,8 @@ class Api extends AbstractApi
             'jsonKey' => 'application_credential',
             'params'  => [
                 'userId' => $this->params->idUrl('user'),
-                'access' => $this->params->idUrl('ec2_credential')
-            ]
+                'access' => $this->params->idUrl('ec2_credential'),
+            ],
         ];
     }
 
@@ -795,7 +795,7 @@ class Api extends AbstractApi
             'method' => 'GET',
             'path'   => 'credentials',
             'params' => [
-                'userId' => $this->params->useridQuery_()
+                'userId' => $this->params->useridQuery_(),
             ],
         ];
     }

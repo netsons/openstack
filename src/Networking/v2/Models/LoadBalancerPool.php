@@ -114,7 +114,7 @@ class LoadBalancerPool extends OperatorResource implements Creatable, Retrievabl
             'listeners'      => new Alias('listeners', LoadBalancerListener::class, true),
             'members'        => new Alias('members', LoadBalancerMember::class, true),
             'healthmonitors' => new Alias('healthmonitors', LoadBalancerHealthMonitor::class, true),
-            'loadbalancers' => new Alias('loadbalancers', LoadBalancer::class, true),
+            'loadbalancers'  => new Alias('loadbalancers', LoadBalancer::class, true),
         ];
     }
 

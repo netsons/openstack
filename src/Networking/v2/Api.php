@@ -416,8 +416,8 @@ class Api extends AbstractApi
             'method' => 'DELETE',
             'path'   => $this->pathPrefix.'/lbaas/loadbalancers/{id}',
             'params' => [
-                'id' => $this->params->idPath(),
-                'cascade' => $this->params->cascade()
+                'id'      => $this->params->idPath(),
+                'cascade' => $this->params->cascade(),
             ],
         ];
     }
@@ -715,7 +715,7 @@ class Api extends AbstractApi
         return [
             'method' => 'GET',
             'path'   => $this->pathPrefix.'/rbac-policies',
-            'params' => []
+            'params' => [],
         ];
     }
 
@@ -731,7 +731,7 @@ class Api extends AbstractApi
                 'object_id'     => $this->params->objectId(),
                 'action'        => $this->params->action(),
                 'project_id'    => $this->params->projectIdJson(),
-            ]
+            ],
         ];
     }
 
@@ -752,8 +752,8 @@ class Api extends AbstractApi
             'method' => 'DELETE',
             'path'   => $this->pathPrefix.'/rbac-policies/{id}',
             'params' => [
-                'id' => $this->params->idPath()
-            ]
+                'id' => $this->params->idPath(),
+            ],
         ];
     }
 }

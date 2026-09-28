@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace OpenStack\Identity\v3;
 
@@ -128,7 +128,7 @@ EOT
         return [
             'type'        => 'string',
             'sentAs'      => 'service_id',
-            'description' => $this->id('service')['description'] . ' that this endpoint belongs to',
+            'description' => $this->id('service')['description'].' that this endpoint belongs to',
         ];
     }
 
@@ -182,7 +182,7 @@ EOT
         return [
             'sentAs'      => 'scope.domain.id',
             'location'    => 'query',
-            'description' => $this->id('domain')['description'] . ' associated with the role assignments',
+            'description' => $this->id('domain')['description'].' associated with the role assignments',
         ];
     }
 
@@ -355,7 +355,7 @@ EOT
     {
         return [
             'type'        => 'string',
-            'description' => "The path for the access rule - Application Credential"
+            'description' => 'The path for the access rule - Application Credential',
         ];
     }
 
@@ -363,7 +363,7 @@ EOT
     {
         return [
             'type'        => 'string',
-            'description' => "The method for the access rule - Application Credential"
+            'description' => 'The method for the access rule - Application Credential',
         ];
     }
 
@@ -371,7 +371,7 @@ EOT
     {
         return [
             'type'        => 'string',
-            'description' => "The service for the access rule - Application Credential"
+            'description' => 'The service for the access rule - Application Credential',
         ];
     }
 }

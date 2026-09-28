@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace OpenStack\Images\v2;
 
@@ -171,7 +171,7 @@ class Params extends AbstractParams
             'type'        => self::STRING_TYPE,
             'sentAs'      => 'os_hidden',
             'description' => 'If the image is os_hidden or not',
-            'enum'        => ['true', 'false']
+            'enum'        => ['true', 'false'],
         ];
     }
 

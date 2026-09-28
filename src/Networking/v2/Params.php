@@ -739,7 +739,7 @@ class Params extends AbstractParams
         return [
             'type'        => self::STRING_TYPE,
             'location'    => self::JSON,
-            'description' => 'The ID of the tenant to which the RBAC policy will be enforced'
+            'description' => 'The ID of the tenant to which the RBAC policy will be enforced',
         ];
     }
 
@@ -755,8 +755,8 @@ class Params extends AbstractParams
                 'security-group',
                 'address-scope',
                 'subnetpool',
-                'address-group'
-            ]
+                'address-group',
+            ],
         ];
     }
 
@@ -765,7 +765,7 @@ class Params extends AbstractParams
         return [
             'type'        => self::STRING_TYPE,
             'location'    => self::JSON,
-            'description' => 'The ID of the object_type resource'
+            'description' => 'The ID of the object_type resource',
         ];
     }
 
@@ -778,15 +778,15 @@ class Params extends AbstractParams
             'enum'        => [
                 'access_as_external',
                 'access_as_shared',
-            ]
+            ],
         ];
     }
 
     public function projectIdJson(): array
     {
         return [
-            'type' => self::STRING_TYPE,
-            'location' => self::JSON,
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
             'description' => 'The ID of the project',
         ];
     }
@@ -794,10 +794,10 @@ class Params extends AbstractParams
     public function cascade(): array
     {
         return [
-            'type' => self::BOOL_TYPE,
-            'location' => self::QUERY,
+            'type'        => self::BOOL_TYPE,
+            'location'    => self::QUERY,
             'description' => 'If true will delete all child objects of the load balancer.',
-            'sentAs'    => 'cascade'
+            'sentAs'      => 'cascade',
         ];
     }
 }

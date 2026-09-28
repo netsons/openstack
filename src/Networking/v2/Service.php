@@ -347,7 +347,7 @@ class Service extends AbstractService
     /**
      * Create a new Rbac policy resource.
      *
-     * @param  array  $options {@see \OpenStack\Networking\v2\Api::postRbacPolicy}
+     * @param array $options {@see \OpenStack\Networking\v2\Api::postRbacPolicy}
      */
     public function createRbacPolicy(array $options): RbacPolicy
     {

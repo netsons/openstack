@@ -20,14 +20,14 @@ class RbacPolicy extends OperatorResource implements Creatable, Deletable, Lista
     use HasWaiterTrait;
 
     /**
-     * The ID of the tenant to which the RBAC policy will be enforced
+     * The ID of the tenant to which the RBAC policy will be enforced.
      *
      * @var string
      */
     public $targetTenant;
 
     /**
-     * The ID of the project that owns the resource
+     * The ID of the project that owns the resource.
      *
      * @var string
      */
@@ -35,7 +35,7 @@ class RbacPolicy extends OperatorResource implements Creatable, Deletable, Lista
 
     /**
      * The type of the object that the RBAC policy affects. Types include qos-policy, network, security-group,
-     * address-scope, subnetpool or address-group
+     * address-scope, subnetpool or address-group.
      *
      * @var string
      */
@@ -45,14 +45,14 @@ class RbacPolicy extends OperatorResource implements Creatable, Deletable, Lista
      * The ID of the object_type resource. An object_type of network returns a network ID, an object_type of qos-policy
      * returns a QoS policy ID, an object_type of security-group returns a security group ID, an object_type of
      * address-scope returns a address scope ID, an object_type of subnetpool returns a subnetpool ID and an
-     * object_type of address-group returns an address group ID
+     * object_type of address-group returns an address group ID.
      *
      * @var string
      */
     public $objectId;
 
     /**
-     * Action for the RBAC policy which is access_as_external or access_as_shared
+     * Action for the RBAC policy which is access_as_external or access_as_shared.
      *
      * @var string
      */
@@ -66,7 +66,7 @@ class RbacPolicy extends OperatorResource implements Creatable, Deletable, Lista
     public $projectId;
 
     /**
-     * The ID of the RBAC policy
+     * The ID of the RBAC policy.
      *
      * @var string
      */

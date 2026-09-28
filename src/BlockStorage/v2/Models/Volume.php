@@ -166,7 +166,7 @@ class Volume extends OperatorResource implements Creatable, Listable, Updateable
     /**
      * Extend the size of a volume.
      *
-     * @param int $newSize The new size of the volume in GB.
+     * @param int $newSize the new size of the volume in GB
      */
     public function extend(int $newSize)
     {
