@@ -30,8 +30,23 @@ class ApplicationCredential extends OperatorResource implements Creatable, Lista
     /** @var string|null */
     public $secret = null;
 
+    /** @var string */
+    public $projectId;
+
+    /** @var string */
+    public $expiresAt;
+
+    /** @var bool */
+    public $unrestricted;
+
+    /** @var array */
+    public $accessRules;
+
     protected $aliases = [
-        'user_id' => 'userId',
+        'user_id'      => 'userId',
+        'project_id'   => 'projectId',
+        'expires_at'   => 'expiresAt',
+        'access_rules' => 'accessRules',
     ];
 
     protected $resourceKey  = 'application_credential';
